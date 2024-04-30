@@ -11,8 +11,9 @@ const nextConfig = {
             hostname: "avatars.githubusercontent.com",
             // pathname: "/ppvan"
         }
-    ]
+    ],
   },
+  reactStrictMode: true,
   // Optionally, add any other Next.js config below
   output: "export",
   distDir: "dist"

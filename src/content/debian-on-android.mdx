@@ -1,29 +1,25 @@
 ---
-title: 'debian on android guide'
-publishedAt: '2024-04-30'
-summary: 'How to chroot into android and make a server'
-image: ''
+title: "debian on android guide"
+publishedAt: "2024-04-30"
+summary: "How to chroot into android and make a server"
+image: ""
 ---
-
 
 # Install debian on android guide
 
-> [!IMPORTANT]
-> **Root** required, if not consider termux. And this is a **VERY** dangerous process. I'm not responsible for any bootlooped or bricked phone. Do this with your broken phone or something
+> [!IMPORTANT] > **Root** required, if not consider termux. And this is a **VERY** dangerous process. I'm not responsible for any bootlooped or bricked phone. Do this with your broken phone or something
 
 ## Install lhroot
 
-- Install [busybox](https://github.com/Magisk-Modules-Alt-Repo/BuiltIn-BusyBox)
+-   Install [busybox](https://github.com/Magisk-Modules-Alt-Repo/BuiltIn-BusyBox)
 
-- Install [lhroot](https://github.com/FerryAr/lhroot).
+-   Install [lhroot](https://github.com/FerryAr/lhroot).
 
-- Install debian as in lhroot repo README.
-
+-   Install debian as in lhroot repo README.
 
 ### Troubleshooting
 
 Well, lhroot is not well maintained, so you can have very mystery bug: "Module not detected". The fix depends on device, but take a look at [my comment](https://github.com/FerryAr/lhroot/issues/45#issuecomment-1946347252)
-
 
 ## Initial setup
 
@@ -31,8 +27,7 @@ Chrooted in debian (using `bootlinux` in `lhroot`)
 
 Setup network
 
-> [!TIP]
-> `aid_net_raw`, `aid_net` is 2 groups have network permission, with you got any network, socket issue, try to add your user to these groups.
+> [!TIP] > `aid_net_raw`, `aid_net` is 2 groups have network permission, with you got any network, socket issue, try to add your user to these groups.
 
 ```bash
 groupadd -g 3004 aid_net_raw
@@ -48,7 +43,6 @@ Update debian mirror
 
 Look for the nearest mirror based on your country at https://www.debian.org/mirror/list, mine is vietnam
 
-
 ```bash
 # path: /etc/apt/sources.list
 
@@ -56,6 +50,7 @@ deb http://mirrors.bkns.vn/debian bullseye main
 ```
 
 Update system
+
 ```bash
 apt update -y && apt upgrade -y
 ```
@@ -76,7 +71,6 @@ passwd <your username>
 ```
 
 ## Setup SSH and other services
-
 
 Install [openrc](https://github.com/OpenRC/openrc)
 
@@ -115,8 +109,6 @@ and sshd should be started normally at port 22.
 
 Read openrc [user-guide](https://github.com/OpenRC/openrc/blob/master/user-guide.md) for more.
 
-
-
 ## Persist between reboot
 
 > Required adb rooted shell. You may `adb shell` then type `su`
@@ -126,6 +118,7 @@ To mount our chroot and execute openrc on boot, we need to write a [magisk boots
 ### Modify lhroot
 
 Copy lhroot source code to somewhere (using adb push from pc), mine is `/data/scripts/`
+
 ```bash
 busybox pwd
 /data/scripts/
@@ -195,7 +188,7 @@ You can get `ip` from `ifconfig` command execute in adb (rooted) shell. `user` i
 
 ## mDNS and avoid ip change.
 
-> Following commands is executed in chrooted shell 
+> Following commands is executed in chrooted shell
 
 ### Access to router
 
@@ -222,7 +215,6 @@ Results:
 ```
 ssh ppvan-android@android.local
 ```
-
 
 ## Resources and useful links
 
