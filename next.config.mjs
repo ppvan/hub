@@ -12,8 +12,10 @@ const nextConfig = {
             // pathname: "/ppvan"
         }
     ]
-  }
+  },
   // Optionally, add any other Next.js config below
+  output: "export",
+  distDir: "dist"
 }
  
 const withMDX = createMDX({

@@ -5,11 +5,11 @@ import classNames from "classnames";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export const sourceSans = Source_Sans_3({
+const sourceSans = Source_Sans_3({
   variable: "--font-sans",
   subsets: ["vietnamese", "latin"],
 });
-export const sourceCodePro = Source_Code_Pro({
+const sourceCodePro = Source_Code_Pro({
   variable: "--font-source",
   subsets: ["vietnamese", "latin"],
 });
@@ -29,6 +29,7 @@ export default function RootLayout({
       <body
         className={classNames(
           sourceSans.variable,
+          sourceCodePro.variable,
           "bg-stone-900 text-violet-50 font-sans max-w-[800px] w-full flex flex-col gap-10 m-auto"
         )}
       >

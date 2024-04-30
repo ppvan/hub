@@ -1,10 +1,7 @@
 import { CustomMDX } from "@/components/mdx";
-import { useMDXComponents } from "@/mdx-components";
 import { getBlogPosts } from "@/utils/populates";
-import { MDXRemote } from "next-mdx-remote/rsc";
 import { notFound } from "next/navigation";
 import { Suspense } from "react";
-
 
 const BlogPost = ({ params }: { params: { slug: string } }) => {
   let post = getBlogPosts().find((post) => post.slug === params.slug);
@@ -26,5 +23,14 @@ const BlogPost = ({ params }: { params: { slug: string } }) => {
     </section>
   );
 };
+
+export async function generateStaticParams() {
+  const posts = getBlogPosts();
+  const paths = posts.map((post) => ({
+    slug: post.slug,
+  }));
+
+  return paths;
+}
 
 export default BlogPost;

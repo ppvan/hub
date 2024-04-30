@@ -63,22 +63,16 @@ export const customComponents: MDXComponents = {
   ),
 
   code: ({ children, ...props }) => (
-    <Code
-      className="font-source rounded-lg px-2 py-1 highlight"
-      {...props}
-    >
+    <Code className="font-source rounded-lg px-2 py-1 highlight" {...props}>
       {children}
     </Code>
   ),
 
   // eslint-disable-next-line @next/next/no-img-element
-  img: ({ children, alt }) => (
-    <img
-      alt={alt ?? "some post image"}
-      className="rounded-lg my-4 block m-auto"
-    >
+  img: ({ children, alt, src }) => (
+    <Image src={src ?? "https://avatars.githubusercontent.com/ppvan"} alt={alt ?? "Default alt"} className="rounded-lg my-4 block m-auto">
       {children}
-    </img>
+    </Image>
   ),
 
   ul: ({ children }) => <ul className="list-disc pl-8">{children}</ul>,
@@ -92,7 +86,9 @@ export const customComponents: MDXComponents = {
 
 function Code({ children, ...props }: any) {
   const codeHTML = highlight(children);
-  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props}></code>;
+  return (
+    <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props}></code>
+  );
 }
 
 export function CustomMDX(props: JSX.IntrinsicAttributes & MDXRemoteProps) {
