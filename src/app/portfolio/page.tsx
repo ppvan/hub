@@ -1,9 +1,9 @@
-import Home from "@/markdown/home.mdx";
+import Portfolio from "@/markdown/portfolio.mdx";
 
 export default function Index() {
   return (
     <main className="flex flex-col gap-4">
-      <Home></Home>
+      <Portfolio></Portfolio>
     </main>
   );
 }
