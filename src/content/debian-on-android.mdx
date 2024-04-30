@@ -34,7 +34,7 @@ Setup network
 > [!TIP]
 > `aid_net_raw`, `aid_net` is 2 groups have network permission, with you got any network, socket issue, try to add your user to these groups.
 
-```
+```bash
 groupadd -g 3004 aid_net_raw
 groupadd -g 1003 aid_graphics
 usermod -g 3003 -G 3003,3004 -a _apt
@@ -49,26 +49,26 @@ Update debian mirror
 Look for the nearest mirror based on your country at https://www.debian.org/mirror/list, mine is vietnam
 
 
-```
+```bash
 # path: /etc/apt/sources.list
 
 deb http://mirrors.bkns.vn/debian bullseye main
 ```
 
 Update system
-```
+```bash
 apt update -y && apt upgrade -y
 ```
 
 Fix the debconf errors:
 
-```
+```bash
 apt install -y dialog apt-utils
 ```
 
 ### Create normal user
 
-```
+```bash
 groupadd storage
 groupadd wheel
 useradd -m -g users -G wheel,audio,video,storage,aid_inet -s /bin/bash <your username>
@@ -82,7 +82,7 @@ Install [openrc](https://github.com/OpenRC/openrc)
 
 > Why? Android using `init` init system, `systemd` does not work with that.
 
-```
+```bash
 apt install openrc
 
 # Remove default config, because this is a chrooted system, they don't work
@@ -95,19 +95,19 @@ rc-update # <- Should have no result
 
 Install openssh-server
 
-```
+```bash
 apt install openssh-server
 ```
 
 Re-check
 
-```
+```bash
 rc-update # <- Should have ssh as default
 ```
 
 Execute:
 
-```
+```bash
 /sbin/openrc default
 ```
 
@@ -126,7 +126,7 @@ To mount our chroot and execute openrc on boot, we need to write a [magisk boots
 ### Modify lhroot
 
 Copy lhroot source code to somewhere (using adb push from pc), mine is `/data/scripts/`
-```
+```bash
 busybox pwd
 /data/scripts/
 
@@ -147,7 +147,7 @@ busybox tree
 
 Create a `autoboot` file in lhroot folder with following content
 
-```
+```bash
 #!/system/bin/sh
 
 ######### IMPORT BOOTLINUX ENVIRONMENT #########
@@ -159,7 +159,7 @@ $busybox chroot $mnt /usr/bin/env su -c 'rm -rf /run/openrc; /sbin/openrc defaul
 
 Make it executable
 
-```
+```bash
 busybox chmox +x /data/scripts/lhroot/autoboot
 ```
 
@@ -167,7 +167,7 @@ busybox chmox +x /data/scripts/lhroot/autoboot
 
 Create a script at `/data/adb/service.d/` for example `/data/adb/service.d/my_startup.sh`
 
-```
+```bash
 #!/system/bin/sh
 
 /data/scripts/lhroot/autoboot
@@ -175,20 +175,20 @@ Create a script at `/data/adb/service.d/` for example `/data/adb/service.d/my_st
 
 Make it executeable
 
-```
+```bash
 busybox chmod +x /data/adb/service.d/my_startup.sh
 ```
 
 Reboot
 
-```
+```sh
 adb reboot
 ```
 
 ## Connect to ssh from pc
 
-```
-ssh <user>@<ip>
+```sh
+ssh user@ip
 ```
 
 You can get `ip` from `ifconfig` command execute in adb (rooted) shell. `user` is user you have created.
@@ -226,16 +226,16 @@ ssh ppvan-android@android.local
 
 ## Resources and useful links
 
-https://wiki.gentoo.org/wiki/Avahi
+[https://wiki.gentoo.org/wiki/Avahi](https://wiki.gentoo.org/wiki/Avahi)
 
-https://github.com/meefik/linuxdeploy/issues/1092#issuecomment-532027612
+[https://github.com/meefik/linuxdeploy/issues/1092#issuecomment-532027612](https://github.com/meefik/linuxdeploy/issues/1092#issuecomment-532027612)
 
-https://github.com/FerryAr/lhroot/issues/14#issuecomment-1774036577
+[https://github.com/FerryAr/lhroot/issues/14#issuecomment-1774036577](https://github.com/FerryAr/lhroot/issues/14#issuecomment-1774036577)
 
-https://ivonblog.com/en-us/posts/termux-chroot-ubuntu/#4-create-a-regular-user-and-setup-language
+[https://ivonblog.com/en-us/posts/termux-chroot-ubuntu/#4-create-a-regular-user-and-setup-language](https://ivonblog.com/en-us/posts/termux-chroot-ubuntu/#4-create-a-regular-user-and-setup-language)
 
-https://www.reddit.com/r/termux/comments/15voay6/start_services_for_proot_installations_with/
+[https://www.reddit.com/r/termux/comments/15voay6/start_services_for_proot_installations_with/](https://www.reddit.com/r/termux/comments/15voay6/start_services_for_proot_installations_with/)
 
-https://topjohnwu.github.io/Magisk/guides.html#boot-scripts
+[https://topjohnwu.github.io/Magisk/guides.html#boot-scripts](https://topjohnwu.github.io/Magisk/guides.html#boot-scripts)
 
-https://github.com/FerryAr/lhroot/pull/29
+[https://github.com/FerryAr/lhroot/pull/29](https://github.com/FerryAr/lhroot/pull/29)

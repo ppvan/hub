@@ -2,9 +2,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { MDXRemote, MDXRemoteProps } from "next-mdx-remote/rsc";
 import { MDXComponents } from "mdx/types";
-import { JSX } from "react";
+import { JSX, ReactElement } from "react";
+import { highlight } from "sugar-high";
 
-export const customComponents : MDXComponents = {
+export const customComponents: MDXComponents = {
   hr: ({ children }) => (
     <hr className="border-slate-700 border-spacing-4 border my-3">
       {children}
@@ -52,19 +53,22 @@ export const customComponents : MDXComponents = {
   ),
 
   div: ({ children }) => (
-    <div className="highlight rounded-lg bg-[#13191d] p-1 font-code my-4">
+    <div className="highlight rounded-lg bg-[#13191d] p-1 font-source my-4">
       {children}
     </div>
   ),
 
   pre: ({ children }) => (
-    <pre className="highlight bg-transparent p-1">{children}</pre>
+    <pre className="bg-[#21262d] rounded p-1 overflow-x-auto">{children}</pre>
   ),
 
-  code: ({ children }) => (
-    <code className="font-code bg-[#13191d] rounded-lg px-2 py-1 highlight">
+  code: ({ children, ...props }) => (
+    <Code
+      className="font-source rounded-lg px-2 py-1 highlight"
+      {...props}
+    >
       {children}
-    </code>
+    </Code>
   ),
 
   // eslint-disable-next-line @next/next/no-img-element
@@ -84,8 +88,12 @@ export const customComponents : MDXComponents = {
   ),
 
   ol: ({ children }) => <ol className="list-decimal pl-8">{children}</ol>,
-
 };
+
+function Code({ children, ...props }: any) {
+  const codeHTML = highlight(children);
+  return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props}></code>;
+}
 
 export function CustomMDX(props: JSX.IntrinsicAttributes & MDXRemoteProps) {
   return (
