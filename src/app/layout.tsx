@@ -26,7 +26,7 @@ export default function RootLayout({
             <body
                 className={classNames(
                     sourceSans.variable,
-                    "bg-stone-900 text-violet-50 font-sans max-w-[800px] w-full flex flex-col gap-10 m-auto",
+                    "bg-stone-900 text-violet-50 lg:text-base text-sm font-sans max-w-screen-md lg:p-4 p-1 w-full flex flex-col gap-10 m-auto text-justify",
                 )}
             >
                 <Header></Header>

@@ -21,10 +21,6 @@ const NavBar = () => {
             name: "Blog",
             url: "/blog",
         },
-        {
-            name: "Github",
-            url: "https://github.com/ppvan",
-        },
     ];
 
     const activeNav = useCallback(
@@ -39,7 +35,7 @@ const NavBar = () => {
     );
 
     return (
-        <div id="links" className="flex w-1/2 justify-between">
+        <div id="links" className="flex justify-start lg:gap-4 gap-2">
             {links.map((item) => (
                 <Link
                     key={item.url}
